@@ -7,12 +7,19 @@ It also include configuration sections that help you pick either a frontend or a
 
 ## Quick Start
 
-```sh
-cargo loco start
-```
+First install essential tooling:
 
 ```sh
-$ cargo loco start
+# Install local tooling with Homebrew:
+brew bundle install
+# Bootstrap the environment:
+just bootstrap
+```
+
+Then, run `just up` (or `cargo loco start`) to start the development server:
+
+```sh
+$ just up  # or `cargo loco start`
 Finished dev [unoptimized + debuginfo] target(s) in 21.63s
     Running `target/debug/myapp start`
 
@@ -46,6 +53,8 @@ compilation: debug
 
 listening on http://localhost:5150
 ```
+
+As it states, the service will be listening on http://localhost:5150.
 
 ## Full Stack Serving
 
