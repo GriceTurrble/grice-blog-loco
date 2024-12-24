@@ -31,6 +31,4 @@ enum Posts {
     Id,
     Title,
     Content,
-    
 }
-

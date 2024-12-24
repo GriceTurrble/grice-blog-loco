@@ -1,0 +1,32 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: "v5.0.0"
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-json
+        exclude: \.vscode
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+        exclude: config
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: trailing-whitespace
+  - repo: https://github.com/rbubley/mirrors-prettier
+    rev: "v3.4.1"
+    hooks:
+      - id: prettier
+        name: prettier-yaml
+        types_or: [yaml]
+        exclude: config
+      - id: prettier
+        name: prettier-misc
+        types_or: [markdown, json, html]
+  - repo: https://github.com/doublify/pre-commit-rust/
+    rev: "v1.0"
+    hooks:
+      - id: fmt
+      - id: cargo-check
+      - id: clippy
