@@ -1,24 +1,13 @@
 {
-  "name": "frontend",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "rsbuild dev --open",
-    "build": "rsbuild build",
-    "lint": "biome check src/",
-    "preview": "rsbuild preview"
-  },
-  "dependencies": {
-    "react": "^19",
-    "react-dom": "^19"
+    "dev": "tailwindcss -i ./src/input.css -o ../assets/static/styles.css --watch",
+    "build": "tailwindcss -i ./src/input.css -o ../assets/static/styles.css --minify"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1",
-    "@rsbuild/core": "^1",
-    "@rsbuild/plugin-react": "^1",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "typescript": "^5"
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.9",
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "@tailwindcss/typography": "^0.5.15",
+    "tailwindcss": "^3.4.17"
   }
 }

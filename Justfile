@@ -8,11 +8,12 @@ help:
 bootstrap:
     cargo install loco
     cargo install sea-orm-cli
+    cargo install cargo-watch
 
 # Start local services
 [group("loco")]
 up:
-    cargo loco start
+    cargo watch --ignore "frontend" -x check -s 'cargo run start'
 
 # Run doctor to check things
 [group("loco")]

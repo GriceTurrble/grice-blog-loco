@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block title %} Edit post: {{ item.id }} {% endblock
 title %} {% block content %}
-<h1>Edit post: {{ item.id }}</h1>
+<h2>Edit post: {{ item.id }}</h2>
 <div class="mb-10">
   <form
     hx-put="/posts/{{ item.id }}"

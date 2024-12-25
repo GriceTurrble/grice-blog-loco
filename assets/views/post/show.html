@@ -1,14 +1,10 @@
-{% extends "base.html" %} {% block title %} View post: {{ item.id }} {% endblock
+{% extends "base.html" %} {% block title %} Post: {{item.title}} {% endblock
 title %} {% block content %}
-<h1>View post: {{ item.id }}</h1>
+<h2>{{item.title}}</h2>
 <div class="mb-10">
-  <div>
-    <label><b>{{"title" | capitalize }}:</b> {{item.title}}</label>
-  </div>
-  <div>
-    <label><b>{{"content" | capitalize }}:</b> {{item.content}}</label>
-  </div>
+  <div class="prose">{{item.content}}</div>
   <br />
   <a href="/posts">Back to posts</a>
+  <a href="/posts/{{ item.id }}/edit">Edit</a>
 </div>
 {% endblock content %}
