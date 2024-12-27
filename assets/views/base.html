@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}{% endblock title %} | GriceBlog</title>
 
+    {# Inter font #}
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+
     <script src="https://unpkg.com/htmx.org@2.0.0/dist/htmx.min.js"></script>
     {% if get_env(name="LOCO_ENV", default="development") == "production" -%}
-      {# Use built static styles -#}
+      {#
+        Use built static styles.
+        If testing these builds in development, run `just frontend build` to refresh
+        or `just frontend dev` to create a watch server that rebuilds on changes.
+      -#}
       <link href="/static/styles.css" rel="stylesheet" />
     {% else -%}
       {# Use the Play CDN in development #}
@@ -18,17 +25,21 @@
         If there are no customizations, the block can be commented out.
         TODO: find a way to read the file via Tera as a single-source?
       #}
-    {#
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {}
+      <script>
+        // const defaultTheme = require('tailwindcss/defaultTheme')
+        // ^ Does not work. But, `tailwind` is provided by the Play CDN script:
+        const defaultTheme = tailwind.defaultTheme;
+
+        // In standard config, we do `export default {...}`.
+        // In Play CDN version, we assign to `tailwind.config` with our overrides:
+        tailwind.config = {
+          theme: {
+            fontFamily: {
+              sans: ["InterVariable", ...defaultTheme.fontFamily.sans],
+            }
           }
-        }
-      }
-    </script>
-    -#}
+        };
+      </script>
     {% endif -%}
     {% block head %}{% endblock head %}
   </head>
