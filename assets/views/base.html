@@ -3,10 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}{% endblock title %}</title>
+    <title>{% block title %}{% endblock title %} | GriceBlog</title>
 
     <script src="https://unpkg.com/htmx.org@2.0.0/dist/htmx.min.js"></script>
-    <link href="/static/styles.css" rel="stylesheet" />
+    {% if get_env(name="LOCO_ENV", default="development") == "production" -%}
+      {# Use built static styles -#}
+      <link href="/static/styles.css" rel="stylesheet" />
+    {% else -%}
+      {# Use the Play CDN in development #}
+      <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+      {#
+        In the script block below, keep the config matching that of
+        'frontend/tailwind.config.js' (minus plugins).
+        If there are no customizations, the block can be commented out.
+        TODO: find a way to read the file via Tera as a single-source?
+      #}
+    {#
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {}
+          }
+        }
+      }
+    </script>
+    -#}
+    {% endif -%}
     {% block head %}{% endblock head %}
   </head>
 
