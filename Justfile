@@ -11,6 +11,10 @@ bootstrap:
     cargo install sea-orm-cli
     cargo install cargo-watch
 
+build:
+    @just frontend build
+    cargo build
+
 # Start local services
 [group("loco")]
 up:
