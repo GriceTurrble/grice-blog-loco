@@ -1,4 +1,5 @@
 mod precommit
+mod frontend "frontend/frontend.just"
 
 # Show these help docs
 help:
