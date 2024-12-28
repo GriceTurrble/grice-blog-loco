@@ -5,11 +5,18 @@
 {% endblock title %}
 
 {% block content %}
-  <h2>{{item.title}}</h2>
-  <div class="mb-10">
-    <div class="prose">{{item.content}}</div>
-    <br />
-    <a href="/posts">Back to posts</a>
-    <a href="/posts/{{ item.id }}/edit">Edit</a>
+  <div class="mt-6 flex items-center justify-start gap-x-3">
+    {{ macros_btn::button(text="Back to posts", style="muted", type="anchor", href="/posts") }}
+    {{ macros_btn::button(text="Edit", style="muted", type="anchor", href="/posts/" ~ item.id ~ "/edit") }}
+  </div>
+
+  <div class="bg-white px-6 pb-16 lg:px-8">
+    <div class="mx-auto max-w-3xl text-base/7 text-gray-700">
+      <p class="text-base/7 font-semibold text-indigo-600">Blog</p>
+      <h1 class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{{item.title}}</h1>
+      <div class="mt-10 max-w-2xl">
+        <p>{{item.content | markdown}}</p>
+      </div>
+    </div>
   </div>
 {% endblock content %}

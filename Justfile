@@ -20,6 +20,8 @@ build:
 up:
     cargo watch --ignore "frontend" -x check -s 'cargo run start'
 
+alias dev := up
+
 # Run doctor to check things
 [group("loco")]
 doctor:

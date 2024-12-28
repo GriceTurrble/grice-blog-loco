@@ -7,6 +7,8 @@ use loco_rs::{
 };
 use tracing::info;
 
+use crate::initializers::custom_filters::filter_markdown;
+
 const I18N_DIR: &str = "assets/i18n";
 const I18N_SHARED: &str = "assets/i18n/shared.ftl";
 #[allow(clippy::module_name_repetitions)]
@@ -39,6 +41,19 @@ impl Initializer for ViewEngineInitializer {
                 .tera
                 .register_function("t", FluentLoader::new(arc));
             info!("locales loaded");
+
+            #[cfg(debug_assertions)]
+            tera_engine
+                .tera
+                .lock()
+                .expect("lock")
+                .register_filter("markdown", filter_markdown);
+
+            #[cfg(not(debug_assertions))]
+            tera_engine
+                .tera
+                .register_filter("markdown", filter_markdown);
+            info!("markdown filter loaded");
         }
 
         Ok(router.layer(Extension(ViewEngine::from(tera_engine))))

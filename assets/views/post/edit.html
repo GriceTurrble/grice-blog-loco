@@ -5,45 +5,43 @@
 {% endblock title %}
 
 {% block content %}
-  <h2>Edit post: {{ item.id }}</h2>
   <div class="mb-10">
     <form
       hx-put="/posts/{{ item.id }}"
       hx-ext="submitjson"
       hx-target="#success-message"
     >
-      <div class="mb-5">
-        <div>
-          <label>title</label>
-          <br />
-          <input id="title" name="title" type="text" value="{{item.title}}" />
+      <div class="space-y-6">
+        <h2 class="text-base/7 font-semibold text-gray-900">
+          Editing Post#{{ item.id }}
+        </h2>
+
+      {# title #}
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <div class="sm:col-span-4">
+            {{ macros_input::input(id="title", label="Title", value=item.title) }}
+          </div>
         </div>
-        <div>
-          <label>content</label>
-          <br />
-          <textarea id="content" name="content" type="text">{{item.content}}</textarea>
+      {# /title #}
+
+      {# content #}
+        <div class="col-span-full">
+          {{ macros_textarea::textarea(id="content", label="Content", text=item.content) }}
         </div>
+      {# /content #}
+
+      {# buttons #}
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+          {{ macros_btn::button(text="Delete", style="muted", onclick="confirmDelete(event)") }}
+          {{ macros_btn::button(text="Save", style="callout", type="submit") }}
+        </div>
+      {# /buttons #}
       </div>
-      <div>
-        <div class="mt-5">
-          <button
-            class="text-xs py-3 px-6 rounded-lg bg-gray-900 text-white"
-            type="submit"
-          >
-            Submit
-          </button>
-          <button
-            class="text-xs py-3 px-6 rounded-lg bg-red-600 text-white"
-            onclick="confirmDelete(event)"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
+
     </form>
     <div id="success-message" class="mt-4"></div>
     <br />
-    <a href="/posts">Back to post</a>
+    {{ macros_btn::button(text="Back to post", style="callout", type="anchor", href="/posts") }}
   </div>
 {% endblock content %}
 
@@ -68,7 +66,7 @@
           }
         }
         return JSON.stringify(json);
-      },
+      }
     });
     function confirmDelete(event) {
       event.preventDefault();
