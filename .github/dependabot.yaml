@@ -29,13 +29,13 @@ updates:
       interval: "daily"
       time: "06:00"
       timezone: "US/Eastern"
-    groups:
-      cargo:
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
-          - "patch"
+    # groups:
+    #   cargo:
+    #     patterns:
+    #       - "*"
+    #     update-types:
+    #       - "minor"
+    #       - "patch"
 
   # NPM / Node stuff
   - package-ecosystem: "npm"
