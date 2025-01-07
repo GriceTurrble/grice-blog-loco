@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
     <script src="https://unpkg.com/htmx.org@2.0.0/dist/htmx.min.js"></script>
+    <script src="https://unpkg.com/htmx-ext-response-targets@2.0.0/response-targets.js"></script>
     {% if get_env(name="LOCO_ENV", default="development") == "production" -%}
       {#
         Use built static styles.

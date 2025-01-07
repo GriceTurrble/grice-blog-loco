@@ -5,21 +5,26 @@
 {% endblock title %}
 
 {% block content %}
-  <div class="mb-10">
-    {% for item in items %}
-      <div class="mb-5">
-        <h2>
-          <a href="/posts/{{ item.id }}">{{ item.title }}</a>
-        </h2>
-        <div>
-          <label><b>{{"content" | capitalize }}:</b> {{item.content}}</label>
-        </div>
-        <a href="/posts/{{ item.id }}/edit">Edit</a>
-      </div>
-    {% endfor %}
+  <div class="mt-6 flex items-center justify-start gap-x-3">
+    {{ macros_btn::button(text="New post", style="callout", type="anchor", href="/posts/new") }}
+  </div>
 
-    <br />
-    <br />
-    <a href="/posts/new">New post</a>
+  <div class="bg-white px-6 pb-16 lg:px-8">
+    <div class="mx-auto max-w-3xl text-base/7 text-gray-700">
+      <ul role="list" class="space-y-3">
+        {% for item in items %}
+          <li class="overflow-hidden bg-white px-4 py-4 shadow sm:rounded-md sm:px-6">
+            <a href="/posts/{{ item.id }}" class="no-underline">
+              <div class="overflow-hidden rounded-lg bg-white shadow">
+                <div class="px-4 py-5 sm:p-6 prose">
+                  <h2>{{ item.title }}</h2>
+                  {{item.content | truncate(length=50) | markdown}}
+                </div>
+              </div>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 {% endblock content %}

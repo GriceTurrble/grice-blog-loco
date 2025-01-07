@@ -5,9 +5,9 @@
 {% endblock title %}
 
 {% block content %}
-  <div class="mt-6 flex items-center justify-start gap-x-3">
+  <div class="mt-6 flex items-center justify-between gap-x-3">
     {{ macros_btn::button(text="Back to posts", style="muted", type="anchor", href="/posts") }}
-    {{ macros_btn::button(text="Edit", style="muted", type="anchor", href="/posts/" ~ item.id ~ "/edit") }}
+    {{ macros_btn::button(text="Edit", style="callout", type="anchor", href="/posts/" ~ item.id ~ "/edit") }}
   </div>
 
   <div class="bg-white px-6 pb-16 lg:px-8">
