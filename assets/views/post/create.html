@@ -5,38 +5,39 @@
 {% endblock title %}
 
 {% block content %}
-  <div class="mb-10">
-    <form hx-post="/posts" hx-ext="submitjson">
-      <h2>Create new post</h2>
-      <div class="mb-5">
-        <div>
-          <label>title</label>
-          <br />
-          <input id="title" name="title" type="text" value="" />
-        </div>
-        <div>
-          <label>content</label>
-          <br />
-          <textarea
-            id="content"
-            name="content"
-            type="text"
-            value=""
-            rows="10"
-            cols="50"
-          ></textarea>
+  <form
+    hx-post="/posts"
+    hx-ext="submitjson"
+  >
+    <div class="mt-6 flex items-center justify-between gap-x-3">
+      {{ macros_btn::button(text="Back to posts", style="muted", type="anchor", href="/posts") }}
+      {{ macros_btn::button(text="Save", style="callout", type="submit") }}
+    </div>
+
+    <div class="bg-white px-6 pb-16 lg:px-8">
+      <div class="mx-auto max-w-3xl text-base/7 text-gray-700">
+        <div class="space-y-6">
+          <h2 class="text-base/7 font-semibold text-gray-900">
+            Create new post
+          </h2>
+
+          {# title #}
+          <div class="grid grid-cols-1 gap-x-3 gap-y-8 sm:grid-cols-6">
+            <div class="sm:col-span-4">
+              {{ macros_input::input(id="title", label="Title") }}
+            </div>
+          </div>
+          {# /title #}
+
+          {# content #}
+          <div class="col-span-full">
+            {{ macros_textarea::textarea(id="content", label="Content") }}
+          </div>
+          {# /content #}
         </div>
       </div>
-      <div>
-        <button
-          class="text-xs py-3 px-6 rounded-lg bg-gray-900 text-white"
-          type="submit"
-        >
-          Submit
-        </button>
-      </div>
-    </form>
-  </div>
+    </div>
+  </form>
 {% endblock content %}
 
 {% block js %}

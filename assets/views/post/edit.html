@@ -5,44 +5,50 @@
 {% endblock title %}
 
 {% block content %}
-  <div class="mb-10">
-    <form
-      hx-put="/posts/{{ item.id }}"
-      hx-ext="submitjson"
-      hx-target="#success-message"
-    >
-      <div class="space-y-6">
-        <h2 class="text-base/7 font-semibold text-gray-900">
-          Editing Post#{{ item.id }}
-        </h2>
-
-      {# title #}
-        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div class="sm:col-span-4">
-            {{ macros_input::input(id="title", label="Title", value=item.title) }}
-          </div>
-        </div>
-      {# /title #}
-
-      {# content #}
-        <div class="col-span-full">
-          {{ macros_textarea::textarea(id="content", label="Content", text=item.content) }}
-        </div>
-      {# /content #}
-
-      {# buttons #}
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-          {{ macros_btn::button(text="Delete", style="muted", onclick="confirmDelete(event)") }}
-          {{ macros_btn::button(text="Save", style="callout", type="submit") }}
-        </div>
-      {# /buttons #}
+  <form
+    hx-put="/posts/{{ item.id }}"
+    hx-ext="submitjson"
+    hx-target="#success-json-detail:pre:code"
+    {# TODO get JSON to show in the console only? Swap in the success message, set green. Get error reporting if possible #}
+    hx-target-5*="#error-message"
+  >
+    <div class="mt-6 flex items-center justify-between gap-x-3">
+      {{ macros_btn::button(text="Back to post", style="muted", type="anchor", href="/posts/" ~ item.id) }}
+      <div class="flex gap-x-3">
+        {{ macros_btn::button(text="Delete", style="muted", onclick="confirmDelete(event)") }}
+        {{ macros_btn::button(text="Save", style="callout", type="submit") }}
       </div>
+    </div>
 
-    </form>
-    <div id="success-message" class="mt-4"></div>
-    <br />
-    {{ macros_btn::button(text="Back to post", style="callout", type="anchor", href="/posts") }}
-  </div>
+    <div class="bg-white px-6 pb-16 lg:px-8">
+      <div class="mx-auto max-w-3xl text-base/7 text-gray-700">
+
+        <div class="space-y-6">
+          <h2 class="text-base/7 font-semibold text-gray-900">
+            Editing Post#{{ item.id }}
+          </h2>
+
+        {# title #}
+          <div class="grid grid-cols-1 gap-x-3 gap-y-8 sm:grid-cols-6">
+            <div class="sm:col-span-4">
+              {{ macros_input::input(id="title", label="Title", value=item.title) }}
+            </div>
+          </div>
+        {# /title #}
+
+        {# content #}
+          <div class="col-span-full">
+            {{ macros_textarea::textarea(id="content", label="Content", text=item.content) }}
+          </div>
+        {# /content #}
+
+        </div>
+        <div id="success-message" class="mt-4">Saved!</div>
+        <div id="success-json-detail" class="mt-4 hidden"><pre><code class="language-json"></code></pre></div>
+        <div id="error-message" class="mt-4 hidden"></div>
+      </div>
+    </div>
+  </form>
 {% endblock content %}
 
 {% block js %}
@@ -51,6 +57,10 @@
       onEvent: function (name, evt) {
         if (name === "htmx:configRequest") {
           evt.detail.headers["Content-Type"] = "application/json";
+        } else if (name === "htmx:afterRequest") {
+          if (evt.detail.successful) {
+            window.location.href = "/posts/{{item.id}}";
+          }
         }
       },
       encodeParameters: function (xhr, parameters, elt) {
