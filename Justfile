@@ -41,3 +41,15 @@ db-down:
 [group("loco")]
 db-reset:
     cargo loco db reset
+
+# The result should be `\\[ \\]`, but we need to escape those slashes again here to make it work:
+GREP_TARGET := "\\\\[gone\\\\]"
+
+# Prunes local branches deleted from remote.
+[group("git")]
+prune-dead-branches:
+    @echo "{{ GREEN }}>> Removing dead branches...{{ NORMAL }}"
+    @git fetch --prune
+    @git branch -v | grep "{{ GREP_TARGET }}" | awk '{print $1}' | xargs -I{} git branch -D {}
+
+alias prune := prune-dead-branches
