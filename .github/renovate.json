@@ -5,7 +5,7 @@
     {
       "groupName": "loco shared deps",
       "matchPackageNames": ["loco-rs", "axum", "validator"],
-      "matchDatasources": ["crate"]
+      "matchDatasources": ["cargo"]
     }
   ]
 }
