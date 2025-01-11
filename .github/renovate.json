@@ -1,4 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>GriceTurrble/renovate-config"]
+  "extends": ["github>GriceTurrble/renovate-config"],
+  "packageRules": [
+    {
+      "group": "loco shared deps",
+      "matchPackageNames": ["loco-rs", "axum", "validator"],
+      "matchDatasources": ["crate"]
+    }
+  ]
 }
