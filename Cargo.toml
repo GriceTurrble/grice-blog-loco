@@ -10,7 +10,7 @@ default-run = "grice_blog_loco-cli"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [workspace.dependencies]
-loco-rs = { version = "0.13.2" }
+loco-rs = { version = "0.14.0" }
 
 [dependencies]
 loco-rs = { workspace = true  }
