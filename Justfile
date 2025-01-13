@@ -17,6 +17,7 @@ sync-justfile:
 ### END COMMON ###
 
 # bootstrap the dev environment
+[group("dev")]
 bootstrap:
     just sync-justfile
     just bootstrap-commons
@@ -25,6 +26,7 @@ bootstrap:
     cargo install cargo-watch
 
 # build the project
+[group("dev")]
 build:
     @just frontend build
     cargo build
