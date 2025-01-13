@@ -1,16 +1,30 @@
-mod precommit
+# Just tools to work on the project.
+# https://just.systems/
+
 mod frontend "frontend/frontend.just"
+### START COMMON ###
+import? 'common.just'
 
 # Show these help docs
 help:
     @just --list --unsorted --justfile {{ source_file() }}
 
+# Pull latest common justfile recipes to local repo
+[group("commons")]
+sync-justfile:
+    curl -H 'Cache-Control: no-cache, no-store' \
+        https://raw.githubusercontent.com/griceturrble/justfiles/main/Justfile > common.just
+### END COMMON ###
+
 # bootstrap the dev environment
 bootstrap:
+    just sync-justfile
+    just bootstrap-commons
     cargo install loco
     cargo install sea-orm-cli
     cargo install cargo-watch
 
+# build the project
 build:
     @just frontend build
     cargo build
@@ -41,15 +55,3 @@ db-down:
 [group("loco")]
 db-reset:
     cargo loco db reset
-
-# The result should be `\\[ \\]`, but we need to escape those slashes again here to make it work:
-GREP_TARGET := "\\\\[gone\\\\]"
-
-# Prunes local branches deleted from remote.
-[group("git")]
-prune-dead-branches:
-    @echo "{{ GREEN }}>> Removing dead branches...{{ NORMAL }}"
-    @git fetch --prune
-    @git branch -v | grep "{{ GREP_TARGET }}" | awk '{print $1}' | xargs -I{} git branch -D {}
-
-alias prune := prune-dead-branches

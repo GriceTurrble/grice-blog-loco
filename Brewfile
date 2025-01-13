@@ -18,6 +18,3 @@ brew "tree"
 brew "hashicorp/tap/terraform"
 brew "tilt-dev/tap/tilt"
 brew "tailwindcss"
-
-cask "font-hack"
-cask "font-commit-mono"
