@@ -31,6 +31,10 @@ build:
     @just frontend build
     cargo build
 
+[group("dev")]
+test *args:
+    cargo test {{ args }}
+
 # Start local services
 [group("loco")]
 up:
