@@ -13,7 +13,7 @@ help:
 [group("commons")]
 sync-justfile:
     curl -H 'Cache-Control: no-cache, no-store' \
-        https://raw.githubusercontent.com/griceturrble/justfiles/main/Justfile > common.just
+        https://raw.githubusercontent.com/griceturrble/common-project-files/main/Justfile > common.just
 ### END COMMON ###
 
 # bootstrap the dev environment
