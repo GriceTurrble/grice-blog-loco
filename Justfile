@@ -11,15 +11,15 @@ help:
 
 # Pull latest common justfile recipes to local repo
 [group("commons")]
-sync-justfile:
+sync-commons:
     curl -H 'Cache-Control: no-cache, no-store' \
-        https://raw.githubusercontent.com/griceturrble/common-project-files/main/Justfile > common.just
+        https://raw.githubusercontent.com/griceturrble/common-project-files/main/common.just > common.just
 ### END COMMON ###
 
 # bootstrap the dev environment
 [group("dev")]
 bootstrap:
-    just sync-justfile
+    just sync-commons
     just bootstrap-commons
     cargo install loco
     cargo install sea-orm-cli
