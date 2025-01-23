@@ -4,6 +4,12 @@ on:
     branches:
       - main
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      # Added to allow CI to run after a draft is marked Ready for Review
+      - ready_for_review
 
 env:
   RUST_TOOLCHAIN: "stable"
