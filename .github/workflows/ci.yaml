@@ -9,6 +9,10 @@ env:
   RUST_TOOLCHAIN: "stable"
   TOOLCHAIN_PROFILE: "minimal"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   precommit:
     name: Precommit checks
