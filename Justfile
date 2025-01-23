@@ -12,6 +12,7 @@ help:
 # Pull latest common justfile recipes to local repo
 [group("commons")]
 sync-commons:
+    -rm common.just
     curl -H 'Cache-Control: no-cache, no-store' \
         https://raw.githubusercontent.com/griceturrble/common-project-files/main/common.just > common.just
 ### END COMMON ###
@@ -21,6 +22,11 @@ sync-commons:
 bootstrap:
     just sync-commons
     just bootstrap-commons
+    just bootstrap-loco
+
+# bootstrap tooling for loco-rs
+[group("dev")]
+bootstrap-loco:
     cargo install loco
     cargo install sea-orm-cli
     cargo install cargo-watch
@@ -31,6 +37,7 @@ build:
     @just frontend build
     cargo build
 
+# Run unit tests
 [group("dev")]
 test *args:
     cargo test {{ args }}
