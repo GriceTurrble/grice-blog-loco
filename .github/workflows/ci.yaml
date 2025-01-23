@@ -4,12 +4,20 @@ on:
     branches:
       - main
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      # Added to allow CI to run after a draft is marked Ready for Review
+      - ready_for_review
 
 env:
   RUST_TOOLCHAIN: "stable"
   TOOLCHAIN_PROFILE: "minimal"
-  PRE_COMMIT_VERSION: "4.0.1"
-  PYTHON_VERSION: "3.12"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   precommit:
