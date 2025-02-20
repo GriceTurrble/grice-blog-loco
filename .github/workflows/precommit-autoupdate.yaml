@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
   # To have it run automatically on a schedule:
   schedule:
-    # Example: every Monday at 11AM UTC (~6AM US/Eastern)
+    # Every Mon 11AM UTC (~6AM US/Eastern)
     - cron: "0 11 * * 1"
 
 jobs:
